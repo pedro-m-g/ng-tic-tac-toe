@@ -1,7 +1,8 @@
 <div class="grid grid-cols-3 gap-4 max-w-sm">
     <app-tile
-        *ngFor="let tile of board"
+        *ngFor="let tile of board; index as i"
         [firstTurn]="firstTurn"
         [value]="tile"
+        (select)="selectTile(i)"
     ></app-tile>
 </div>

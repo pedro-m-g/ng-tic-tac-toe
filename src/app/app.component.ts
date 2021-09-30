@@ -15,4 +15,8 @@ export class AppComponent {
     return this.firstTurn ? 'text-green-500' : 'text-red-500';
   }
 
+  onSelect() {
+    this.firstTurn = !this.firstTurn;
+  }
+
 }
