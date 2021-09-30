@@ -2,9 +2,17 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'tic-tac-toe';
+  firstTurn = Math.random() >= 0.5;
+
+  get player() {
+    return this.firstTurn ? 'X' : 'O';
+  }
+
+  get color() {
+    return this.firstTurn ? 'text-green-500' : 'text-red-500';
+  }
+
 }
