@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-board',
@@ -14,8 +14,6 @@ export class BoardComponent {
   color(turn: boolean) {
     return turn ? 'text-green-500' : 'text-red-500';
   }
-
-  @Output() finish = new EventEmitter<boolean>();
 
   board = new Array<boolean | undefined>(9);
 
@@ -60,14 +58,16 @@ export class BoardComponent {
    */
   get winner() {
     if (this.checkTurn(true)) {
-      this.finish.emit(true);
       return true;
     }
     if (this.checkTurn(false)) {
-      this.finish.emit(false);
       return false;
     }
     return undefined;
+  }
+
+  reset() {
+    this.board = new Array<boolean | undefined>(9);
   }
 
 }
