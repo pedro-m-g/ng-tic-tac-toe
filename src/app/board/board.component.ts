@@ -20,8 +20,8 @@ export class BoardComponent {
   board = new Array<boolean | undefined>(9);
 
   selectTile(index: number) {
-    if (this.board[index] !== undefined) {
-      // Tile already has a value
+    if (this.board[index] !== undefined || this.winner !== undefined) {
+      // Tile already has a value or the game has finished
       return;
     }
     this.board[index] = this.firstTurn;
