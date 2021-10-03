@@ -5,32 +5,78 @@ import { Component } from '@angular/core';
   templateUrl: './board.component.html'
 })
 export class BoardComponent {
+
+  /**
+   * Flag to determine wether current turn is "X" (true) or "O" (false) player.
+   */
   firstTurn = Math.random() >= 0.5;
 
+  /**
+   * Game board, represented as a plain array of booleans (true = "X", false = "O").
+   */
+  board = new Array<boolean | undefined>(9);
+
+  /**
+   * Get player symbol ("X" or "O") from flag.
+   *
+   * @param turn Player flag
+   *
+   * @returns Player symbol
+   */
   player(turn: boolean) {
     return turn ? 'X' : 'O';
   }
 
+  /**
+   * Get player color from flag.
+   *
+   * NOTE: Classes must be purgable by Tailwind, that means these must be complete,
+   *       otherwise, these will be removed from the processed CSS.
+   *
+   * @param turn Player flag
+   *
+   * @returns Player color
+   */
   color(turn: boolean) {
     return turn ? 'text-green-500' : 'text-red-500';
   }
 
-  board = new Array<boolean | undefined>(9);
-
+  /**
+   * Select a tile.
+   *
+   * @param index Selected index
+   *
+   * @returns void
+   */
   selectTile(index: number) {
     if (this.board[index] !== undefined || this.winner !== undefined) {
       // Tile already has a value or the game has finished
       return;
     }
-    this.board[index] = this.firstTurn;
-    this.firstTurn = !this.firstTurn;
+    this.board[index] = this.firstTurn; // Select tile with current player.
+    this.firstTurn = !this.firstTurn; // Toggle current player.
   }
 
+  /**
+   * Check if {turn} player has won in the {indices} row.
+   *
+   * @param turn Player flag
+   * @param indices Board indices to check for a win
+   *
+   * @returns true if this is a winner board
+   */
   check(turn: boolean, indices: number[]): boolean {
     return indices.map(i => this.board[i])
                   .every(value => value === turn);
   }
 
+  /**
+   * Checks if the {turn} player has won.
+   *
+   * @param turn Player flag
+   *
+   * @returns true if player has won
+   */
   checkTurn(turn: boolean) {
     return (
       // Check rows
@@ -66,6 +112,9 @@ export class BoardComponent {
     return undefined;
   }
 
+  /**
+   * Start a new game
+   */
   reset() {
     this.board = new Array<boolean | undefined>(9);
   }
