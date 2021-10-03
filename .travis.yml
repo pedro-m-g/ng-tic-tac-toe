@@ -4,7 +4,7 @@ node_js:
 install:
   - npm ci
 script:
-  - ng build --prod --base-href=/ng-tic-tac-toe/
+  - ng build --base-href=/ng-tic-tac-toe/
 deploy:
   provider: pages
   skip_cleanup: true
